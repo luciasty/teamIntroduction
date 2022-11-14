@@ -1,0 +1,42 @@
+header {
+    width: 500px;
+    height: 100px;
+
+    margin: 0 auto;
+}
+
+header > h1 {
+    font-size: 50px;
+
+    text-align: center;
+}
+
+header > div {
+    position: absolute;
+}
+
+.members {
+    width: 500px;
+    margin: auto;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-floating {
+    margin-bottom: 10px;
+}
+
+#post-box {
+
+    width: 95%;
+    max-width: 500px;
+    margin: 20px auto 20px auto;
+    padding: 20px;
+    box-shadow: 0px 0px 3px 0px gray;
+
+    display: none;
+
+}
