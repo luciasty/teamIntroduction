@@ -5,132 +5,28 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>4조 프로필</title>
-    <style>
-        @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
+    <link href="../static/profile.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
+    <script src="../static/profile.js"></script>
 
-        * {
-            font-family: "Pretendard", serif;
-        }
-
-        body {
-            background-color: white;
-        }
-
-        .profile {
-            width: 500px;
-            height: 500px;
-
-            border-radius: 100%;
-
-            border: 5px solid green;
-
-            background-image: url('https://ca.slack-edge.com/T043597JK8V-U0441726KCK-a3679f2c9b84-512');
-            background-position: center;
-            background-size: cover;
-        }
-
-        .main {
-            color: #333333;
-            font-size: 40px;
-
-            margin-top: 30px;
-        }
-
-        .sub {
-            color: green;
-            font-size: 30px;
-
-            margin-top: 0px;
-            margin-bottom: 30px;
-        }
-
-        .wrap {
-            width: 500px;
-            margin: auto;
-
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .wrap > .userText {
-            width: 300px;
-            height: 50px;
-
-            background-color: aliceblue;
-            border-radius: 8px;
-
-            margin-bottom: 10px;
-
-            font-size: 14px;
-            font-weight: bold;
-            color: green;
-
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-
-            text-decoration: none;
-
-            box-shadow: 3px 3px 5px 0px rgb(43, 100, 16);
-        }
-        .mypost {
-            width: 95%;
-            max-width: 500px;
-            margin: 30px auto 20px auto;
-
-            box-shadow: 0px 0px 3px 0px black;
-            padding: 10px;
-        }
-
-        .mypost > button {
-            margin: 5px auto auto 10px;
-        }
-
-        .mycards {
-            width: 95%;
-            max-width: 500px;
-            margin: auto;
-        }
-
-
-        .textbox {
-            height: 100px;
-            width: 95%;
-            text-align: center;
-            margin: 10px 10px 10px 10px;
-         
-
-        }
-
-        .text{
-            height: 25px;
-            width: 20%;
-            margin: 2px 10px 10px 10px;
-            text-align: center;
-        }
-
-    </style>
 </head>
 <body>
 <div class="wrap">
-    <div class="profile"></div>
-    <h1 class="main">박무현</h1>
-    <p class="sub">자기소개</p>
-    <p class="userText">장점</p>
-    <p class="userText"> 자신의 일하는 스타일</p>
-    <p class="userText"> 어떠한 개발자가 되고 싶은지</p>
-    <p class="userText"> 마지막으로 한마디</p>
+
 </div>
 <div class="mypost">
     <div>
         <input type="text" class="text" id="name" placeholder="이름">
     </div>
-     <div>
-         <input type="text" class="textbox" placeholder="여기에 남길 말을 써주세요."id="comment">
-     </div>
+    <div>
+        <input type="text" class="textbox" placeholder="여기에 남길 말을 써주세요." id="comment">
+    </div>
     <button onclick="save_comment()" type="button">축하 말 남기기</button>
 </div>
 </body>
