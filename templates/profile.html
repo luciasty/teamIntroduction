@@ -15,20 +15,19 @@
             integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
             crossorigin="anonymous"></script>
     <script src="../static/profile.js"></script>
-
-
- </head>
+</head>
 <body>
 <div class="wrap"></div>
 <div class="mypost" id="guestbook_box">
     <div>
         <input type="text" class="text" id="name" placeholder="이름">
     </div>
-     <div>
-         <input type="text" class="textbox" placeholder="여기에 남길 말을 써주세요."id="comment">
-     </div>
+    <div>
+        <input type="text" class="textbox" placeholder="여기에 남길 말을 써주세요." id="comment">
+    </div>
     <button onclick="save_comment()" type="button">방명록 남기기</button>
     <button onclick="hide_comment()" class="hidebutton" type="button">닫기</button>
+    <div class="card" id="card"></div>
 </div>
 </body>
 </html>

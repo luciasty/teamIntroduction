@@ -24,6 +24,7 @@ $(document).ready(function () {
                 const name = member["name"];
                 const sns = member["sns"];
                 const cnt = member["viewcnt"]
+                // const city = member["city"]
 
                 // html구조를 작성하고 가져온 데이터를 삽입한다.
                 temp_html = `<div class="card mb-3" style="max-width: 540px;">
@@ -48,21 +49,23 @@ $(document).ready(function () {
                                 </div>
                             </div>`;
 
+                //스파르타 코딩클럽에서 제공하는 api에서 지역 온도를 가져온다.
+                // $.ajax({
+                //     type: "get",
+                //     url: "http://spartacodingclub.shop/sparta_api/weather/"+city,
+                //     data: {},
+                //     success: function (response) {
+                //         $(".temp").text(response["temp"]);
+                //     }
+                // });
+
                 // class members를 가지고 있는 요소에다가 작성해둔 temp_html을 추가한다.
                 $(".members").append(temp_html);
 
             }
         }
     });
-    //스파르타 코딩클럽에서 제공하는 api에서 지역 온도를 가져온다.
-    $.ajax({
-        type: "get",
-        url: "http://spartacodingclub.shop/sparta_api/weather/seoul",
-        data: {},
-        success: function (response) {
-            $(".temp").text(response["temp"]);
-        }
-    });
+
 
     //팀원의 정보를 입력하고 버튼을 클릭하면 함수가 실행한다.
     $(".save_button").click(function () {
@@ -97,41 +100,5 @@ $(document).ready(function () {
                 window.location.reload();
             }
         });
-    });
-});
-
-$(document).ready(function () {
-
-    $.ajax({
-        type: "GET",
-        url: "http://spartacodingclub.shop/sparta_api/weather/seoul",
-        data: {},
-        success: function (response) {
-            let seoul_temp = response['temp']
-
-            $('#seuolgion').text(seoul_temp)
-        }
-    });
-
-    $.ajax({
-        type: "GET",
-        url: "http://spartacodingclub.shop/sparta_api/weather/busan",
-        data: {},
-        success: function (response) {
-            let busan_temp = response['temp']
-
-            $('#busangion').text(busan_temp)
-        }
-    });
-
-    $.ajax({
-        type: "GET",
-        url: "http://spartacodingclub.shop/sparta_api/weather/incheon",
-        data: {},
-        success: function (response) {
-            let incheon_temp = response['temp']
-
-            $('#incheongion').text(incheon_temp)
-        }
     });
 });

@@ -6,8 +6,52 @@ function open_comment() {
     $('#guestbook_box').show()
 }
 
+function show_comment() {
+    $.ajax({
+        type: 'GET',
+        url: '/guest-list',
+        data: {},
+        success: function (response) {
+            const guestbook_list = response['guestbook_list']
+
+            for (const guestbook of guestbook_list) {
+                const name = guestbook["name"];
+                const comment = guestbook["comment"];
+                const id = guestbook["id"];
+
+                let temp_html = `<div class="card-header">
+                                        ${name}
+                                        </div>
+                                        <ul class="list-group list-group-flush">
+                                        <li class="list-group-item">${comment}</li>
+                                        </ul>`
+
+                $('#card').append(temp_html)
+
+            }
+        }
+    });
+}
+
+function save_comment() {
+    const name = $('#name').val();
+    const comment = $('#comment').val();
+    const id = $(".main").attr("value");
+
+    $.ajax({
+        type: "POST",
+        url: "/guestbook",
+        data: {name_give: name, comment_give: comment, id_give: id},
+        success: function (response) {
+            alert(response['msg'])
+            window.location.reload()
+        }
+    });
+}
+
 //프로필 페이지가 다 준비가 되면 함수 실행
 $(document).ready(function () {
+    show_comment();
     // window.location.search로 url의 파라미터값을 가져온다.
     // URLSearchParams() 객체는 url 쿼리 문자열 작업을 할 수 있는 메서드를 제공한다.
     // get메서드를 이용해서 해당 파라미터의 value값을 가져온다

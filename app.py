@@ -11,10 +11,12 @@ app = Flask(__name__)
 def home():
     return render_template("index.html")
 
+
 # 프로필 페이지로 이동하면 profile.html을 보여준다.
 @app.route("/profile")
 def profile():
     return render_template("profile.html")
+
 
 # 팀원 추가
 # 숫자로 id를 주기 위해서 db에서 받아올 정보가 있기 때문에 GET을 사용한다
@@ -85,27 +87,31 @@ def profile_get():
     # 데이터베이스에서 _id를 제외한 id의 팀원 정보를 검색해서 가져온다.
     member = db.members.find_one({"id": id}, {"_id": False})
     cnt_receive = member["viewcnt"]
-    cnt_receive += 1 
-    db.members.update_one({"id": id}, {"$set": {'viewcnt' : cnt_receive}})
-    
-    
+    cnt_receive += 1
+    db.members.update_one({"id": id}, {"$set": {'viewcnt': cnt_receive}})
+
     # 리턴으로 저장한 member를 넘긴다.
     return jsonify({"member": member})
 
-@app.route("/guestbook", methods=["POST"])
+
+@app.route('/guest-list', methods=['GET'])
+def guestbook_get():
+    guestbook_list = list(db.comment.find({}, {'_id': False}))
+    return jsonify({'guestbook_list': guestbook_list})
+
+
+@app.route('/guestbook', methods=['POST'])
 def guestbook():
     id_receive = request.form["id_give"]
-    name_receive = request.form["name_give"]
-    comment_receive = request.form["comment_give"]
-
+    name_receive = request.form['name_give']
+    comment_receive = request.form['comment_give']
     doc = {
         "id": id_receive,
-        "name": name_receive,
-        "comment": comment_receive
+        'name': name_receive,
+        'comment': comment_receive
     }
-
     db.comment.insert_one(doc)
-    return jsonify({"msg": "추가 완료!"})
+    return jsonify({'msg': '방명록 남기기 완료!'})
 
 
 if __name__ == "__main__":
