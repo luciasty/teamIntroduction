@@ -1,13 +1,16 @@
 from flask import Flask, render_template, jsonify, request
 from pymongo import MongoClient
 
-client = MongoClient("mongodb+srv://test:sparta@cluster0.ai4u91k.mongodb.net/?retryWrites=true&w=majority")
+client = MongoClient(
+    "mongodb+srv://test:sparta@cluster0.ai4u91k.mongodb.net/?retryWrites=true&w=majority")
 db = client.dbsparta
 app = Flask(__name__)
+
 
 @app.route("/")
 def home():
     return render_template("index.html")
+
 
 @app.route("/creat-member", methods=["POST"])
 def creat_member():
@@ -18,7 +21,6 @@ def creat_member():
     goals_receive = request.form["goals_give"]
     appointment_receive = request.form["appointment_give"]
     sns_receive = request.form["sns_give"]
-
 
     doc = {
         "image": image_receive,

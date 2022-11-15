@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <title>4조 프로필</title>
     <style>
         @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
@@ -83,10 +84,23 @@
 
             box-shadow: 0px 0px 3px 0px black;
             padding: 10px;
+            display: none;
         }
 
         .mypost > button {
             margin: 5px auto auto 10px;
+            border-radius: 10px;
+            border: 1px solid white;
+        }
+
+        .hidebutton {
+            margin: 5px auto auto 10px;
+            border-radius: 10px;
+            background-color:  transparent;
+        }
+
+        .mypost > button:hover {
+            border: 2px solid white;
         }
 
         .mycards {
@@ -113,6 +127,15 @@
         }
 
     </style>
+    <script>
+        function hide_comment(){
+        $('#방명록박스').hide()
+        }
+
+        function open_comment(){
+        $('#방명록박스').show()
+        }
+    </script>
 </head>
 <body>
 <div class="wrap">
@@ -123,15 +146,17 @@
     <p class="userText"> 자신의 일하는 스타일</p>
     <p class="userText"> 어떠한 개발자가 되고 싶은지</p>
     <p class="userText"> 마지막으로 한마디</p>
+    <button onclick="open_comment()" type="button">방명록 남기기</button>
 </div>
-<div class="mypost">
+<div class="mypost" id="방명록박스">
     <div>
         <input type="text" class="text" id="name" placeholder="이름">
     </div>
      <div>
          <input type="text" class="textbox" placeholder="여기에 남길 말을 써주세요."id="comment">
      </div>
-    <button onclick="save_comment()" type="button">축하 말 남기기</button>
+    <button onclick="save_comment()" type="button">방명록 남기기</button>
+    <button onclick="hide_comment()" class="hidebutton" type="button">닫기</button>
 </div>
 </body>
 </html>

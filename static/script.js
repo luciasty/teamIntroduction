@@ -27,3 +27,39 @@ $(document).ready(function () {
 
     });
 });
+
+$(document).ready(function () {
+
+    $.ajax({
+        type: "GET",
+        url: "http://spartacodingclub.shop/sparta_api/weather/seoul",
+        data: {},
+        success: function (response) {
+            let 서울기온 = response['temp']
+
+            $('#seuolgion').text(서울기온)
+        }
+    });
+
+    $.ajax({
+        type: "GET",
+        url: "http://spartacodingclub.shop/sparta_api/weather/busan",
+        data: {},
+        success: function (response) {
+            let 부산기온 = response['temp']
+
+            $('#busangion').text(부산기온)
+        }
+    });
+
+    $.ajax({
+        type: "GET",
+        url: "http://spartacodingclub.shop/sparta_api/weather/incheon",
+        data: {},
+        success: function (response) {
+            let 인천기온 = response['temp']
+
+            $('#incheongion').text(인천기온)
+        }
+    });
+});
