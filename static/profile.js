@@ -25,7 +25,7 @@ $(document).ready(function () {
             const id = member["id"];
 
             const temp_html = `<div class="profile"></div>
-                        <h1 class="main">${name}</h1>
+                        <h1 class="main" value="${id}">${name}</h1>
                         <p class="sub">${yourself}</p>
                         <p class="userText">${strong}</p>
                         <p class="userText">${style}</p>
@@ -35,8 +35,21 @@ $(document).ready(function () {
             $(".wrap").append(temp_html);
             $(".profile").css("background-image", `url("${image}")`);
         }
-
-
     });
 
+    $(".save_button").click(function () {
+        const name = $("#name").val();
+        const comment = $("#comment").val();
+        const id = $(".main").attr("value");
+
+        $.ajax({
+            type: "POST",
+            url:"/guestbook",
+            data:{id_give: id, name_give: name, comment_give: comment},
+            success: function (response) {
+                alert(response["msg"]);
+                window.location.reload();
+            }
+        });
+    });
 });

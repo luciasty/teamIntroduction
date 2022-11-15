@@ -87,6 +87,21 @@ def profile_get():
     # 리턴으로 저장한 member를 넘긴다.
     return jsonify({"member": merber})
 
+@app.route("/guestbook", methods=["POST"])
+def guestbook():
+    id_receive = request.form["id_give"]
+    name_receive = request.form["name_give"]
+    comment_receive = request.form["comment_give"]
+
+    doc = {
+        "id": id_receive,
+        "name": name_receive,
+        "comment": comment_receive
+    }
+
+    db.comment.insert_one(doc)
+    return jsonify({"msg": "추가 완료!"})
+
 
 if __name__ == "__main__":
     app.run("0.0.0.0", port=5000, debug=True)

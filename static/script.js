@@ -34,7 +34,7 @@ $(document).ready(function () {
                                     <div class="col-md-4">
                                         <div class="card-body">
                                             <h5 class="card-title title_color">${name}</h5>
-                                            <p class="card-text temp">서울: 18도</p>
+                                            <p class="card-text temp"></p>
                                             <a href="${sns}" class="card-text">개발일지 블로그</a>
                                         </div>
                                     </div>
