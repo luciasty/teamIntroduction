@@ -23,6 +23,7 @@ $(document).ready(function () {
                 const image = member["image"];
                 const name = member["name"];
                 const sns = member["sns"];
+                const cnt = member["viewcnt"]
 
                 // html구조를 작성하고 가져온 데이터를 삽입한다.
                 temp_html = `<div class="card mb-3" style="max-width: 540px;">
@@ -41,7 +42,7 @@ $(document).ready(function () {
                                     <div class="col-md-4">
                                         <div class="card-body">
                                             <button><a href="/profile?id=${id}">프로필 보기</a></button>
-                                            <p class="card-text">조회수: 10</p>
+                                            <p class="card-text">조회수: ${cnt}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -98,3 +99,11 @@ $(document).ready(function () {
         });
     });
 });
+
+
+
+
+
+
+
+

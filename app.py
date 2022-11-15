@@ -1,7 +1,7 @@
 from flask import Flask, render_template, jsonify, request
 from pymongo import MongoClient
 
-client = MongoClient("mongodb+srv://test:sparta@cluster0.ai4u91k.mongodb.net/?retryWrites=true&w=majority")
+client = MongoClient("localhost", 27017)
 db = client.dbsparta
 app = Flask(__name__)
 
@@ -41,6 +41,7 @@ def creat_member():
     sns_receive = request.form["sns_give"]
     # id가 겹치지 않게 1씩 더해서 id값을 증가시킨다.
     id += 1
+    cnt = 0
 
     # 받아온 값들을 문서로 만든다.
     doc = {
@@ -52,7 +53,8 @@ def creat_member():
         "style": style_receive,
         "goals": goals_receive,
         "appointment": appointment_receive,
-        "sns": sns_receive
+        "sns": sns_receive,
+        "viewcnt": cnt
     }
 
     # 작성된 문서를 데이터베이스에 밀어넣는다
@@ -73,19 +75,22 @@ def members_get():
 
 
 # 프로필 페이지가 로딩되면 팀원의 정보를 가져온다.
-@app.route("/profile-get", methods=["GET"])
+@app.route("/profile-get", methods=["GET", "POST"])
 def profile_get():
     # ajax에서 url에 직접 보내준 id_give파라미터를 가져온다.
     id_receive = request.args.get('id_give')
 
     # 가져온 파라미터 값이 String으로 가져와진다 그렇기 때문에 데이터베이스 id와 같은 자료형으로 변환 시켜준다.
     id = int(id_receive)
-
     # 데이터베이스에서 _id를 제외한 id의 팀원 정보를 검색해서 가져온다.
-    merber = db.members.find_one({"id": id}, {"_id": False})
-
+    member = db.members.find_one({"id": id}, {"_id": False})
+    cnt_receive = member["viewcnt"]
+    cnt_receive += 1 
+    db.members.update_one({"id": id}, {"$set": {'viewcnt' : cnt_receive}})
+    
+    
     # 리턴으로 저장한 member를 넘긴다.
-    return jsonify({"member": merber})
+    return jsonify({"member": member})
 
 @app.route("/guestbook", methods=["POST"])
 def guestbook():
