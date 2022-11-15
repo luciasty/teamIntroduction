@@ -19,10 +19,10 @@ $(document).ready(function () {
             // for of를 이용해 리스트를 반복
             const members = response["members"];
             for (const member of members) {
-                id = member["id"];
-                image = member["image"];
-                name = member["name"];
-                sns = member["sns"];
+                const id = member["id"];
+                const image = member["image"];
+                const name = member["name"];
+                const sns = member["sns"];
 
                 // html구조를 작성하고 가져온 데이터를 삽입한다.
                 temp_html = `<div class="card mb-3" style="max-width: 540px;">
@@ -79,7 +79,7 @@ $(document).ready(function () {
         $.ajax({
             //정보를 추가하기 때문에 POST를 사용한다.
             //data를 모두 보내고 성공했으면 창을 새로고침 합니다.
-            type: "POST",
+            type: "post",
             url: "/creat-member",
             data: {
                 image_give: image,
@@ -96,6 +96,5 @@ $(document).ready(function () {
                 window.location.reload();
             }
         });
-
     });
 });

@@ -3,9 +3,9 @@ $(document).ready(function () {
     // window.location.search로 url의 파라미터값을 가져온다.
     // URLSearchParams() 객체는 url 쿼리 문자열 작업을 할 수 있는 메서드를 제공한다.
     // get메서드를 이용해서 해당 파라미터의 value값을 가져온다
-    let query = window.location.search;
-    let param = new URLSearchParams(query);
-    let id = param.get('id');
+    const query = window.location.search;
+    const param = new URLSearchParams(query);
+    const id = param.get('id');
 
     $.ajax({
         // url에 파라미터값을 직접 넣어 팀원정보 요청시 필요한 id를 서버에 넘겨준다.
