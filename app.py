@@ -1,7 +1,8 @@
 from flask import Flask, render_template, jsonify, request
 from pymongo import MongoClient
 
-client = MongoClient("mongodb+srv://test:sparta@cluster0.ai4u91k.mongodb.net/?retryWrites=true&w=majority")
+client = MongoClient(
+    "mongodb+srv://test:sparta@cluster0.ai4u91k.mongodb.net/?retryWrites=true&w=majority")
 db = client.dbsparta
 app = Flask(__name__)
 
@@ -9,7 +10,6 @@ app = Flask(__name__)
 @app.route("/")
 def home():
     return render_template("index.html")
-
 
 # 프로필 페이지로 이동하면 profile.html을 보여준다.
 @app.route("/profile")

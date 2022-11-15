@@ -100,10 +100,38 @@ $(document).ready(function () {
     });
 });
 
+$(document).ready(function () {
 
+    $.ajax({
+        type: "GET",
+        url: "http://spartacodingclub.shop/sparta_api/weather/seoul",
+        data: {},
+        success: function (response) {
+            let seoul_temp = response['temp']
 
+            $('#seuolgion').text(seoul_temp)
+        }
+    });
 
+    $.ajax({
+        type: "GET",
+        url: "http://spartacodingclub.shop/sparta_api/weather/busan",
+        data: {},
+        success: function (response) {
+            let busan_temp = response['temp']
 
+            $('#busangion').text(busan_temp)
+        }
+    });
 
+    $.ajax({
+        type: "GET",
+        url: "http://spartacodingclub.shop/sparta_api/weather/incheon",
+        data: {},
+        success: function (response) {
+            let incheon_temp = response['temp']
 
-
+            $('#incheongion').text(incheon_temp)
+        }
+    });
+});

@@ -1,3 +1,11 @@
+function hide_comment() {
+    $('#guestbook_box').hide()
+}
+
+function open_comment() {
+    $('#guestbook_box').show()
+}
+
 //프로필 페이지가 다 준비가 되면 함수 실행
 $(document).ready(function () {
     // window.location.search로 url의 파라미터값을 가져온다.
@@ -30,7 +38,8 @@ $(document).ready(function () {
                         <p class="userText">${strong}</p>
                         <p class="userText">${style}</p>
                         <p class="userText">${goals}</p>
-                        <p class="userText">${appointment}</p>`
+                        <p class="userText">${appointment}</p>
+                        <button onclick="open_comment()" type="button">방명록 남기기</button>`
 
             $(".wrap").append(temp_html);
             $(".profile").css("background-image", `url("${image}")`);
@@ -44,8 +53,8 @@ $(document).ready(function () {
 
         $.ajax({
             type: "POST",
-            url:"/guestbook",
-            data:{id_give: id, name_give: name, comment_give: comment},
+            url: "/guestbook",
+            data: {id_give: id, name_give: name, comment_give: comment},
             success: function (response) {
                 alert(response["msg"]);
                 window.location.reload();
