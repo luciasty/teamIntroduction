@@ -101,4 +101,17 @@ $(document).ready(function () {
             }
         });
     });
+
+    const my_mane = document.querySelector("#my_name");
+    const my_image = document.querySelector("#my_image");
+    const my_yourself = document.querySelector("#my_yourself");
+    const my_strong = document.querySelector("#my_strong");
+    const my_style = document.querySelector("#my_style");
+    const my_goals = document.querySelector("#my_goals");
+    const my_appointment = document.querySelector("#my_appointment");
+    const my_sns = document.querySelector("#my_sns");
+    const save_button = document.querySelector('.save_button');
+
+
+
 });
