@@ -26,7 +26,7 @@ $(document).ready(function () {
                 const cnt = member["viewcnt"]
 
                 // html구조를 작성하고 가져온 데이터를 삽입한다.
-                temp_html = `<div class="card mb-3" style="max-width: 540px;">
+                temp_html = `<div class="card mb-3 cards-radius">
                                 <div class="row g-0">
                                     <div class="col-md-4">
                                         <img src="${image}"
@@ -36,12 +36,12 @@ $(document).ready(function () {
                                         <div class="card-body">
                                             <h5 class="card-title title_color">${name}</h5>
                                             <p class="card-text temp"></p>
-                                            <a href="${sns}" class="card-text">개발일지 블로그</a>
+                                            <a href="${sns}" class="card-text blog_hover">개발일지 블로그</a>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="card-body">
-                                            <button><a href="/profile?id=${id}">프로필 보기</a></button>
+                                            <button class="blog_hover"><a href="/profile?id=${id}">프로필 보기</a></button>
                                             <p class="card-text">조회수: ${cnt}</p>
                                         </div>
                                     </div>

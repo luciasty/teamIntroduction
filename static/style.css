@@ -1,8 +1,12 @@
+/**{
+    background-image: url("https://png.pngtree.com/background/20210711/original/pngtree-desk-overlooking-banner-background-picture-image_1067718.jpg");
+}*/
 header {
     width: 500px;
     height: 100px;
+    margin: 10px auto;
+    background-image: url("https://png.pngtree.com/background/20210711/original/pngtree-desk-overlooking-banner-background-picture-image_1067718.jpg");
 
-    margin: 0 auto;
 }
 
 header > h1 {
@@ -28,6 +32,56 @@ header > div {
 .form-floating {
     margin-bottom: 10px;
 }
+
+.title {
+    color: black;
+    border-width: medium;
+    border-style: solid;
+    margin: 30px 100px 30px 100px;
+    padding: 10px 10px 10px 10px;
+    border-radius: 10px;
+    background: #F1F1F3;
+
+
+
+}
+
+.button_hover {
+    background: gold;
+    position: relative;
+    left: 520px;
+
+
+}
+
+.button_hover:hover {
+    background: skyblue;
+    border-radius: 10px;
+}
+
+.blog_hover:hover {
+    background: skyblue;
+    border-radius: 10px;
+}
+
+.save_button:hover {
+    background: skyblue;
+    border-radius: 10px;
+}
+
+.close_box:hover {
+    background: skyblue;
+    border-radius: 10px;
+}
+
+.cards-radius {
+    border-radius: 10px;
+    object-fit: contain;
+    width: 540px;
+    height: 180px;
+}
+
+
 
 #post-box {
 
