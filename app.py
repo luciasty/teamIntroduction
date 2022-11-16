@@ -96,7 +96,9 @@ def profile_get():
 
 @app.route('/guest-list', methods=['GET'])
 def guestbook_get():
-    guestbook_list = list(db.comment.find({}, {'_id': False}))
+    id_receive = request.args.get('id_give')
+    id = int(id_receive)
+    guestbook_list = list(db.comment.find({"id": id}, {'_id': False}))
     return jsonify({'guestbook_list': guestbook_list})
 
 
@@ -105,8 +107,9 @@ def guestbook():
     id_receive = request.form["id_give"]
     name_receive = request.form['name_give']
     comment_receive = request.form['comment_give']
+    id = int(id_receive)
     doc = {
-        "id": id_receive,
+        "id": id,
         'name': name_receive,
         'comment': comment_receive
     }

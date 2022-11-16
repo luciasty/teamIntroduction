@@ -6,10 +6,11 @@ function open_comment() {
     $('#guestbook_box').show()
 }
 
-function show_comment() {
+function show_comment(id) {
+
     $.ajax({
         type: 'GET',
-        url: '/guest-list',
+        url: '/guest-list?id_give='+id,
         data: {},
         success: function (response) {
             const guestbook_list = response['guestbook_list']
@@ -51,13 +52,13 @@ function save_comment() {
 
 //프로필 페이지가 다 준비가 되면 함수 실행
 $(document).ready(function () {
-    show_comment();
     // window.location.search로 url의 파라미터값을 가져온다.
     // URLSearchParams() 객체는 url 쿼리 문자열 작업을 할 수 있는 메서드를 제공한다.
     // get메서드를 이용해서 해당 파라미터의 value값을 가져온다
     const query = window.location.search;
     const param = new URLSearchParams(query);
     const id = param.get('id');
+    show_comment(id);
 
     $.ajax({
         // url에 파라미터값을 직접 넣어 팀원정보 요청시 필요한 id를 서버에 넘겨준다.
@@ -88,21 +89,5 @@ $(document).ready(function () {
             $(".wrap").append(temp_html);
             $(".profile").css("background-image", `url("${image}")`);
         }
-    });
-
-    $(".save_button").click(function () {
-        const name = $("#name").val();
-        const comment = $("#comment").val();
-        const id = $(".main").attr("value");
-
-        $.ajax({
-            type: "POST",
-            url: "/guestbook",
-            data: {id_give: id, name_give: name, comment_give: comment},
-            success: function (response) {
-                alert(response["msg"]);
-                window.location.reload();
-            }
-        });
     });
 });
