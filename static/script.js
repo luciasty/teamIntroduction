@@ -113,4 +113,21 @@ $(document).ready(function () {
     const my_appointment = document.querySelector("#my_appointment");
     const my_sns = document.querySelector("#my_sns");
     const save_button = document.querySelector('.save_button');
+
+    function activeEvent() {
+        switch (!(my_mane.value && my_image.value && my_yourself.value && my_strong.value && my_style.value && my_goals.value)) {
+            case true :
+                loginButton.disabled = true;
+                break;
+            case false :
+                loginButton.disabled = false;
+                break
+        }
+    }
+
+    function errorEvent() { // 이건 그냥 error 문구 출력해보려고 만들어봄.(신경안써도됨)
+        formWrap.classList.add('error');
+    }
+
+
 });
