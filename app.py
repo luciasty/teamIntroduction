@@ -1,8 +1,7 @@
-from flask import Flask, render_template, jsonify, request
+from flask import Flask, jsonify, render_template, request
 from pymongo import MongoClient
 
-client = MongoClient(
-    "mongodb+srv://test:sparta@cluster0.ai4u91k.mongodb.net/?retryWrites=true&w=majority")
+client = MongoClient("mongodb+srv://test:sparta@cluster0.ai4u91k.mongodb.net/?retryWrites=true&w=majority")
 db = client.dbsparta
 app = Flask(__name__)
 
@@ -94,26 +93,28 @@ def profile_get():
     return jsonify({"member": member})
 
 
-@app.route('/guest-list', methods=['GET'])
+@app.route('/guestbook', methods=['GET'])
 def guestbook_get():
     id_receive = request.args.get('id_give')
     id = int(id_receive)
-    guestbook_list = list(db.comment.find({"id": id}, {'_id': False}))
-    return jsonify({'guestbook_list': guestbook_list})
+    guestbook_list = list(db.guestbook.find({"id": id}, {'_id': False}))
+    # guestbook_list = list(db.guestbook.find({}, {'_id': False}))
+    return jsonify({'guestbook_key': guestbook_list})
 
 
 @app.route('/guestbook', methods=['POST'])
-def guestbook():
+def guestbook_post():
     id_receive = request.form["id_give"]
     name_receive = request.form['name_give']
     comment_receive = request.form['comment_give']
+    
     id = int(id_receive)
     doc = {
         "id": id,
         'name': name_receive,
         'comment': comment_receive
     }
-    db.comment.insert_one(doc)
+    db.guestbook.insert_one(doc)
     return jsonify({'msg': '방명록 남기기 완료!'})
 
 

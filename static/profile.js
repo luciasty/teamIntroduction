@@ -1,20 +1,39 @@
 function hide_comment() {
     $('#guestbook_box').hide()
+    $('#card').hide()
 }
 
 function open_comment() {
     $('#guestbook_box').show()
+    $('#card').show()
 }
 
 function show_comment(id) {
-
+        console.log('1번')
     $.ajax({
         type: 'GET',
-        url: '/guest-list?id_give='+id,
+        url : '/guestbook?id_give='+id ,
         data: {},
         success: function (response) {
-            const guestbook_list = response['guestbook_list']
+            console.log('2번')
+            // let rows = response['guestbook_key']
+            // for (let i = 0; i < rows.length; i++){
+            //     let guest_name = rows[i]['name']
+            //     let guest_comment = rows[i]['comment']
+            //     let guest_id = rows[i]['id']
 
+            //     console.log(guest_comment,guest_id,guest_name)
+
+            //     let temp_html = `<div class="card-header">
+            //                     ${guest_name}
+            //                     </div>
+            //                     <ul class="list-group list-group-flush">
+            //                     <li class="list-group-item">${guest_comment}</li>
+            //                     </ul> `
+            //                     $('#card').append(temp_html)
+            // }
+            const guestbook_list = response['guestbook_key']
+            console.log('3번')
             for (const guestbook of guestbook_list) {
                 const name = guestbook["name"];
                 const comment = guestbook["comment"];
@@ -28,9 +47,9 @@ function show_comment(id) {
                                         </ul>`
 
                 $('#card').append(temp_html)
-
-            }
-        }
+                console.log('4번')
+            } console.log('5번')
+        } 
     });
 }
 
@@ -39,6 +58,11 @@ function save_comment() {
     const comment = $('#comment').val();
     const id = $(".main").attr("value");
 
+    if (name === '' || comment === '') {
+        alert('빈칸을 모두 채워주세요 T^T')
+    }
+    else {
+
     $.ajax({
         type: "POST",
         url: "/guestbook",
@@ -46,9 +70,13 @@ function save_comment() {
         success: function (response) {
             alert(response['msg'])
             window.location.reload()
+            console.log(typeof(name))
+            console.log(typeof(comment))
+            console.log(typeof(id))
+            console.log(typeof(3))
         }
     });
-}
+} }
 
 //프로필 페이지가 다 준비가 되면 함수 실행
 $(document).ready(function () {
