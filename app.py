@@ -19,11 +19,9 @@ def profile():
 
 
 # 팀원 추가
-# 숫자로 id를 주기 위해서 db에서 받아올 정보가 있기 때문에 GET을 사용한다
 # 입력받은 팀원의 정보를 추가하기 위해서 POST를 사용한다
-# methods안에는 두개를 동시에 사용할 수 있다.
-@app.route("/creat-member", methods=["GET", "POST"])
-def creat_member():
+@app.route("/members", methods=["POST"])
+def creat_members():
     # 데이터베이스 안에서 members안에 문서를 카운트한다
     # 문서가 비었으면 id를 초기화 한다
     if (db.members.count_documents({}) == 0):
@@ -77,7 +75,7 @@ def members_get():
 
 
 # 프로필 페이지가 로딩되면 팀원의 정보를 가져온다.
-@app.route("/profile-get", methods=["GET", "POST"])
+@app.route("/profiles", methods=["GET"])
 def profile_get():
     # ajax에서 url에 직접 보내준 id_give파라미터를 가져온다.
     id_receive = request.args.get('id_give')
@@ -94,7 +92,7 @@ def profile_get():
     return jsonify({"member": member})
 
 
-@app.route('/guest-list', methods=['GET'])
+@app.route('/guestbooks', methods=['GET'])
 def guestbook_get():
     id_receive = request.args.get('id_give')
     id = int(id_receive)
@@ -102,7 +100,7 @@ def guestbook_get():
     return jsonify({'guestbook_list': guestbook_list})
 
 
-@app.route('/guestbook', methods=['POST'])
+@app.route('/guestbooks', methods=['POST'])
 def guestbook():
     id_receive = request.form["id_give"]
     name_receive = request.form['name_give']

@@ -10,7 +10,7 @@ function show_comment(id) {
 
     $.ajax({
         type: 'GET',
-        url: '/guest-list?id_give='+id,
+        url: '/guestbooks?id_give='+id,
         data: {},
         success: function (response) {
             const guestbook_list = response['guestbook_list']
@@ -41,7 +41,7 @@ function save_comment() {
 
     $.ajax({
         type: "POST",
-        url: "/guestbook",
+        url: "/guestbooks",
         data: {name_give: name, comment_give: comment, id_give: id},
         success: function (response) {
             alert(response['msg'])
@@ -63,7 +63,7 @@ $(document).ready(function () {
     $.ajax({
         // url에 파라미터값을 직접 넣어 팀원정보 요청시 필요한 id를 서버에 넘겨준다.
         type: "GET",
-        url: "/profile-get?id_give=" + id,
+        url: "/profiles?id_give=" + id,
         data: {},
         success: function (response) {
             const member = response["member"];

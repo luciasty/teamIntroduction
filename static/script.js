@@ -84,7 +84,7 @@ $(document).ready(function () {
             //정보를 추가하기 때문에 POST를 사용한다.
             //data를 모두 보내고 성공했으면 창을 새로고침 합니다.
             type: "post",
-            url: "/creat-member",
+            url: "/members",
             data: {
                 image_give: image,
                 name_give: name,
