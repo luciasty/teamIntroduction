@@ -1,20 +1,20 @@
 function hide_comment() {
     $('#guestbook_box').hide()
+    $('#card').hide()
 }
 
 function open_comment() {
     $('#guestbook_box').show()
+    $('#card').show()
 }
 
 function show_comment(id) {
-
     $.ajax({
         type: 'GET',
-        url: '/guestbooks?id_give='+id,
+        url: '/guestbooks?id_give=' + id,
         data: {},
         success: function (response) {
-            const guestbook_list = response['guestbook_list']
-
+            const guestbook_list = response['guestbook_key']
             for (const guestbook of guestbook_list) {
                 const name = guestbook["name"];
                 const comment = guestbook["comment"];
@@ -28,7 +28,6 @@ function show_comment(id) {
                                         </ul>`
 
                 $('#card').append(temp_html)
-
             }
         }
     });
@@ -39,15 +38,24 @@ function save_comment() {
     const comment = $('#comment').val();
     const id = $(".main").attr("value");
 
-    $.ajax({
-        type: "POST",
-        url: "/guestbooks",
-        data: {name_give: name, comment_give: comment, id_give: id},
-        success: function (response) {
-            alert(response['msg'])
-            window.location.reload()
-        }
-    });
+    if (name === '' || comment === '') {
+        alert('빈칸을 모두 채워주세요 T^T')
+    } else {
+
+        $.ajax({
+            type: "POST",
+            url: "/guestbooks",
+            data: {name_give: name, comment_give: comment, id_give: id},
+            success: function (response) {
+                alert(response['msg'])
+                window.location.reload()
+                console.log(typeof (name))
+                console.log(typeof (comment))
+                console.log(typeof (id))
+                console.log(typeof (3))
+            }
+        });
+    }
 }
 
 //프로필 페이지가 다 준비가 되면 함수 실행
