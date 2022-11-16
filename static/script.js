@@ -24,10 +24,17 @@ $(document).ready(function () {
                 const name = member["name"];
                 const sns = member["sns"];
                 const cnt = member["viewcnt"]
-                // const city = member["city"]
+                const city = member["my_city"];
 
-                // html구조를 작성하고 가져온 데이터를 삽입한다.
-                temp_html = `<div class="card mb-3" style="max-width: 540px;">
+                // 가져온 지역 변수를 사용해서 날씨 정보를 가져온다
+                $.ajax({
+                    type: "get",
+                    url: "http://spartacodingclub.shop/sparta_api/weather/" + city,
+                    data: {},
+                    success: function (response) {
+                        const temp = response["temp"]
+
+                        const temp_html = `<div class="card mb-3" style="max-width: 540px;">
                                 <div class="row g-0">
                                     <div class="col-md-4">
                                         <img src="${image}"
@@ -36,7 +43,8 @@ $(document).ready(function () {
                                     <div class="col-md-4">
                                         <div class="card-body">
                                             <h5 class="card-title title_color">${name}</h5>
-                                            <p class="card-text temp"></p>
+                                            <p class="card-text">지역:${city}</p>
+                                            <p class="card-text temp">${temp}도</p>
                                             <a href="${sns}" class="card-text">개발일지 블로그</a>
                                         </div>
                                     </div>
@@ -49,23 +57,13 @@ $(document).ready(function () {
                                 </div>
                             </div>`;
 
-                //스파르타 코딩클럽에서 제공하는 api에서 지역 온도를 가져온다.
-                // $.ajax({
-                //     type: "get",
-                //     url: "http://spartacodingclub.shop/sparta_api/weather/"+city,
-                //     data: {},
-                //     success: function (response) {
-                //         $(".temp").text(response["temp"]);
-                //     }
-                // });
-
-                // class members를 가지고 있는 요소에다가 작성해둔 temp_html을 추가한다.
-                $(".members").append(temp_html);
-
+                        // html구조를 작성하고 가져온 데이터를 삽입한다.
+                        $(".members").append(temp_html);
+                    }
+                });
             }
         }
     });
-
 
     //팀원의 정보를 입력하고 버튼을 클릭하면 함수가 실행한다.
     $(".save_button").click(function () {
@@ -78,12 +76,15 @@ $(document).ready(function () {
         const goals = $("#my_goals").val();
         const appointment = $("#my_appointment").val();
         const sns = $("#my_sns").val();
+        //지역의 값이 그 외지역을" Korea로 저장해서 한국 날씨를 출력한다.
+        let city = $("#my_city").val();
+        city = (city === "korea" ? city = "korea" : city)
 
         //ajax를 통해서 서버와 연결한다.
         $.ajax({
             //정보를 추가하기 때문에 POST를 사용한다.
             //data를 모두 보내고 성공했으면 창을 새로고침 합니다.
-            type: "post",
+            type: "POST",
             url: "/members",
             data: {
                 image_give: image,
@@ -93,9 +94,10 @@ $(document).ready(function () {
                 style_give: style,
                 goals_give: goals,
                 appointment_give: appointment,
-                sns_give: sns
-            },
-            success: function (response) {
+                sns_give: sns,
+                city_give: city
+
+            }, success: function (response) {
                 alert(response["msg"]);
                 window.location.reload();
             }
@@ -111,7 +113,4 @@ $(document).ready(function () {
     const my_appointment = document.querySelector("#my_appointment");
     const my_sns = document.querySelector("#my_sns");
     const save_button = document.querySelector('.save_button');
-
-
-
 });

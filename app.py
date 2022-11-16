@@ -39,6 +39,7 @@ def creat_members():
     goals_receive = request.form["goals_give"]
     appointment_receive = request.form["appointment_give"]
     sns_receive = request.form["sns_give"]
+    city_receive = request.form["city_give"]
     # id가 겹치지 않게 1씩 더해서 id값을 증가시킨다.
     id += 1
     cnt = 0
@@ -54,7 +55,8 @@ def creat_members():
         "goals": goals_receive,
         "appointment": appointment_receive,
         "sns": sns_receive,
-        "viewcnt": cnt
+        "viewcnt": cnt,
+        "my_city": city_receive
     }
 
     # 작성된 문서를 데이터베이스에 밀어넣는다
