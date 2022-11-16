@@ -1,6 +1,7 @@
 // 팀원을 추가하는 폼을 닫았다 열었다 한다.
 function open_box() {
     $('#post-box').show()
+    activeEvent()
 }
 
 function close_box() {
@@ -9,6 +10,7 @@ function close_box() {
 
 //모든 HTML 문서가 준비가 되었으면 함수를 실행한다.
 $(document).ready(function () {
+    // activeEvent()
     // index페이지에 팀원 리스트 가져오기
     $.ajax({
         type: "get",
@@ -103,31 +105,4 @@ $(document).ready(function () {
             }
         });
     });
-
-    const my_mane = document.querySelector("#my_name");
-    const my_image = document.querySelector("#my_image");
-    const my_yourself = document.querySelector("#my_yourself");
-    const my_strong = document.querySelector("#my_strong");
-    const my_style = document.querySelector("#my_style");
-    const my_goals = document.querySelector("#my_goals");
-    const my_appointment = document.querySelector("#my_appointment");
-    const my_sns = document.querySelector("#my_sns");
-    const save_button = document.querySelector('.save_button');
-
-    function activeEvent() {
-        switch (!(my_mane.value && my_image.value && my_yourself.value && my_strong.value && my_style.value && my_goals.value)) {
-            case true :
-                loginButton.disabled = true;
-                break;
-            case false :
-                loginButton.disabled = false;
-                break
-        }
-    }
-
-    function errorEvent() { // 이건 그냥 error 문구 출력해보려고 만들어봄.(신경안써도됨)
-        formWrap.classList.add('error');
-    }
-
-
 });
