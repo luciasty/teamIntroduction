@@ -1,8 +1,7 @@
 from flask import Flask, jsonify, render_template, request
 from pymongo import MongoClient
 
-# client = MongoClient("mongodb+srv://test:sparta@cluster0.ai4u91k.mongodb.net/?retryWrites=true&w=majority")
-client = MongoClient("mongodb+srv://juho:a123456@cluster0.95gcur7.mongodb.net/test")
+client = MongoClient("mongodb+srv://test:sparta@cluster0.ai4u91k.mongodb.net/?retryWrites=true&w=majority")
 db = client.dbsparta
 app = Flask(__name__)
 
@@ -141,19 +140,7 @@ def guestbook_modi():
     db.guestbook.update_one({'comment_id': int(comment_id_receive)}, {'$set': {'comment': modi_receive}})
     return jsonify({'msg': '수정되었습니다.'})
 
-
-
-
-
-
-
-
-
-
-
-
-
-@app.route('/mainbook', methods=['GET'])
+@app.route('/mainbooks', methods=['GET'])
 def mainbook_get():
     # id_receive = request.args.get('id_give')
     # id = int(id_receive)
@@ -161,7 +148,7 @@ def mainbook_get():
     return jsonify({'mainbook_key': mainbook_list})
 
 
-@app.route('/mainbook', methods=['POST'])
+@app.route('/mainbooks', methods=['POST'])
 def mainbook_post():
     if (db.mainbook.count_documents({}) == 0):
         comment_id = 0
@@ -181,14 +168,14 @@ def mainbook_post():
     return jsonify({'msg': '방명록 남기기 완료!'})
 
 
-@app.route('/mainbook/delete', methods=['POST'])
+@app.route('/mainbooks/delete', methods=['POST'])
 def mainbook_delete():
     comment_id_receive = request.form['comment_id_give']
     db.mainbook.delete_one({'comment_id': int(comment_id_receive)})
     return jsonify({'msg': '삭제되었습니다.'})
 
 
-@app.route('/mainbook/modi', methods=['POST'])
+@app.route('/mainbooks/modi', methods=['POST'])
 def mainbook_modi():
     modi_receive = request.form['modi_give']
     comment_id_receive = request.form['comment_id_give']
