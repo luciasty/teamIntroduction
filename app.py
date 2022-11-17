@@ -20,7 +20,7 @@ def profile():
 # 팀원 추가
 # 입력받은 팀원의 정보를 추가하기 위해서 POST를 사용한다
 @app.route("/members", methods=["POST"])
-def creat_members():
+def create_members():
     # 데이터베이스 안에서 members안에 문서를 카운트한다
     # 문서가 비었으면 id를 초기화 한다
     if (db.members.count_documents({}) == 0):
