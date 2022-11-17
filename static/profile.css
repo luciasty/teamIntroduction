@@ -133,3 +133,12 @@ body {
 .save_button {
     border-radius: 10px;
 }
+
+
+.card-header {
+    border: 1px solid rgba(0,0,0,.125);
+}
+
+.card-body {
+    border: 1px solid rgba(0,0,0,.125);
+}

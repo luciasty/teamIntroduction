@@ -8,40 +8,24 @@ function open_comment() {
 
 function show_comment(id) {
     $.ajax({
-        type: 'GET',
-        url: '/guestbooks?id_give=' + id,
-        data: {},
-        success: function (response) {
-            console.log(response['guestbook_key'])
-            // const guestbook_list = response['guestbook_key']
-            // for (const guestbook of guestbook_list) {
-            //     const name = guestbook["name"];
-            //     const comment = guestbook["comment"];
-            //     const id = guestbook["id"];
-            //     const num = guestbook["num"];
-            
-            let rows = response['guestbook_key']
-            for (let i = 0; i < rows.length; i++){
-                let name = rows[i]['name']
-                let comment = rows[i]['comment']
-                let num = rows[i]['num']
-                let done = rows[i]['done'] 
-
-                let temp_html = ``
-                if (done === 0) {
-                    temp_html =  `<div class="card-header">
-                                    ${name}
-                                    </div>
-                                    <ul class="list-group list-group-flush">
-                                    <li class="list-group-item">${comment} </li>
-                                    <button onclick="delete_comment(${num})" type="button" class="delete_comment()" id="delete_comment">🗑</button>
-                                    <button onclick="modi_comment(${num})" type="button" class="modi_comment()" id="delete_comment">수정하기</button>
-                                    </ul>`
-                } else {
-                    temp_html = ``
+            type: 'GET',
+            url: '/guestbooks?id_give=' + id,
+            data: {},
+            success: function (response) {
+                let rows = response['guestbook_key']
+                for (let i = 0; i < rows.length; i++) {
+                    let name = rows[i]['name']
+                    let comment = rows[i]['comment']
+                    let comment_id = rows[i]['comment_id']
+                    let temp_html = `<div class="card-header">
+                                        ${name}
+                                      </div>
+                                      <div class="card-body">                            
+                                        <p class="card-text">${comment}</p>
+                                        <button onclick="delete_comment(${comment_id})" type="button" id="delete_comment" class="btn btn-primary">삭제</button>
+                                        <button onclick="modi_comment(${comment_id})" type="button" id="delete_comment" class="btn btn-primary">수정</button>`
+                    $('#card').append(temp_html)
                 }
-                $('#card').append(temp_html)
-            }
             }
         }
     )
@@ -68,35 +52,32 @@ function save_comment() {
     }
 }
 
-function delete_comment(num) {
-    // const countnum = $('#num').val();
-    if (confirm('댓글 삭제하실래요? 삭제한 댓글은 복구할 수 없어요 T^T')) 
-    {
-    $.ajax({
-        type: "POST",
-        url: "/guestbooks/done",
-        data: { num_give:num },
-        success: function (response) {
-            alert(response["msg"])
-            window.location.reload()
-        },
-    });
-}}
+function delete_comment(comment_id) {
+    if (confirm('댓글 삭제하실래요? 삭제한 댓글은 복구할 수 없어요 T^T')) {
+        $.ajax({
+            type: "POST",
+            url: "/guestbooks/delete",
+            data: {comment_id_give: comment_id},
+            success: function (response) {
+                alert(response["msg"])
+                window.location.reload()
+            },
+        });
+    }
+}
 
-function modi_comment(num){
+function modi_comment(comment_id) {
     const modi_comment = prompt('수정하실 내용을 작성해주세요. 그리고 수정한 댓글은 복구할 수 없어요 T^T')
-    console.log(modi_comment)
-    
+
     $.ajax({
         type: "POST",
-        url: "/guestbooks/comment",
-        data: { modi_give:modi_comment, num_give:num },
+        url: "/guestbooks/modi",
+        data: {modi_give: modi_comment, comment_id_give: comment_id},
         success: function (response) {
             alert(response["msg"])
             window.location.reload()
         },
     });
-
 }
 
 //프로필 페이지가 다 준비가 되면 함수 실행
@@ -133,7 +114,7 @@ $(document).ready(function () {
                         <p class="userText">${style}</p>
                         <p class="userText">${goals}</p>
                         <p class="userText">${appointment}</p>
-                        <button onclick="open_comment()" type="button">방명록 남기기</button>`
+                        <button onclick="open_comment()" type="button" class="btn btn-warning">방명록 남기기</button>`
 
             $(".wrap").append(temp_html);
             $(".profile").css("background-image", `url("${image}")`);
