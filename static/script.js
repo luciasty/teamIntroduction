@@ -54,7 +54,7 @@ $(document).ready(function () {
                                     </div>
                                     <div class="col-md-4">
                                         <div class="card-body">
-                                            <button class="blog_hover"><a href="/profile?id=${id}">프로필 보기</a></button>
+                                        <button type="button" class="btn btn-light blog_hover"><a href="/profile?id=${id}">프로필 보기</a></button>
                                             <p class="card-text">조회수: ${cnt}</p>
                                         </div>
                                     </div>
@@ -79,14 +79,11 @@ $(document).ready(function () {
                     data: {},
                     success: function (response) {
                         const temp = response["temp"]
-
+                        
                         $(`.${city}`).text(`${temp}  °C`);
-
                     }
                 });
             }
-
-
         }
     });
 
