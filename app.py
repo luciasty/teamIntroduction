@@ -98,25 +98,44 @@ def guestbook_get():
     id_receive = request.args.get('id_give')
     id = int(id_receive)
     guestbook_list = list(db.guestbook.find({"id": id}, {'_id': False}))
-    # guestbook_list = list(db.guestbook.find({}, {'_id': False}))
     return jsonify({'guestbook_key': guestbook_list})
 
 
 @app.route('/guestbooks', methods=['POST'])
-def guestbook():
+def guestbook_post():
+
     id_receive = request.form["id_give"]
     name_receive = request.form['name_give']
     comment_receive = request.form['comment_give']
     
     id = int(id_receive)
+    
+    comment_list = list(db.guestbook.find({"id": id}, {'_id': False}))
+    count = len(comment_list) +1
     doc = {
+        "num" : count,
         "id": id,
         'name': name_receive,
-        'comment': comment_receive
+        'comment': comment_receive,
+        'done' :0
     }
     db.guestbook.insert_one(doc)
     return jsonify({'msg': '방명록 남기기 완료!'})
 
+
+@app.route('/guestbooks/done', methods=['POST'])
+def guestbook_delete():
+    num_receive = request.form['num_give']
+    db.guestbook.update_one({'num':int(num_receive)},{'$set':{'done':1}})
+    return jsonify({'msg': '삭제되었습니다.'})
+
+
+@app.route('/guestbooks/comment', methods=['POST'])
+def guestbook_modi():
+    modi_receive = request.form['modi_give']
+    num_receive = request.form['num_give']
+    db.guestbook.update_one({'num':int(num_receive)},{'$set':{'comment':modi_receive}})
+    return jsonify({'msg': '수정되었습니다.'})
 
 if __name__ == "__main__":
     app.run("0.0.0.0", port=5000, debug=True)
