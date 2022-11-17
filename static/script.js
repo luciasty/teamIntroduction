@@ -20,6 +20,17 @@ $(document).ready(function () {
             // 가져온 response안에 members리스트를 변수에 저장
             // for of를 이용해 리스트를 반복
             const members = response["members"];
+            const member_cities = []
+
+            // 중복된 지역 날씨를 계속 요청하면 너무 많은 요청을 하게 됨
+            // 지역은 고정되있어 팀원들의 지역중 중복된 값을 모두 지우고 필요한 지역만 남김
+            for (const member of members) {
+                member_cities.push(member["my_city"]);
+            }
+            // 전개연사자를 이용해서 중복을 없애는 Set()을 적용한 결과물을 리스트로 만듬
+            const cities = [...new Set(member_cities)];
+
+            // 팀원 정보를 처리
             for (const member of members) {
                 const id = member["id"];
                 const image = member["image"];
@@ -28,15 +39,7 @@ $(document).ready(function () {
                 const cnt = member["viewcnt"]
                 const city = member["my_city"];
 
-                // 가져온 지역 변수를 사용해서 날씨 정보를 가져온다
-                $.ajax({
-                    type: "get",
-                    url: "http://spartacodingclub.shop/sparta_api/weather/" + city,
-                    data: {},
-                    success: function (response) {
-                        const temp = response["temp"]
-
-                        const temp_html = `<div class="card mb-3 cards-radius" style="max-width: 540px;">
+                const temp_html = `<div class="card mb-3 cards-radius" style="max-width: 540px;">
 
                                 <div class="row g-0">
                                     <div class="col-md-4">
@@ -47,7 +50,7 @@ $(document).ready(function () {
                                         <div class="card-body">
                                             <h5 class="card-title title_color">${name}</h5>
                                             <p class="card-text">지역:${city}</p>
-                                            <p class="card-text temp">${temp}도</p>
+                                            <p class="card-text ${city}"></p>
                                             <a href="${sns}" class="card-text blog_hover">개발일지 블로그</a>
                                         </div>
                                     </div>
@@ -60,11 +63,28 @@ $(document).ready(function () {
                                 </div>
                             </div>`;
 
-                        // html구조를 작성하고 가져온 데이터를 삽입한다.
-                        $(".members").append(temp_html);
+                // html구조를 작성하고 가져온 데이터를 삽입한다.
+                $(".members").append(temp_html);
+
+            }
+
+            // 정리해둔 지역 리스트로 필요한 요청만 진행
+            for (const city of cities) {
+                // 가져온 지역 변수를 사용해서 날씨 정보를 가져온다
+                $.ajax({
+                    type: "get",
+                    url: "http://spartacodingclub.shop/sparta_api/weather/" + city,
+                    data: {},
+                    success: function (response) {
+                        const temp = response["temp"]
+
+                        $(`.${city}`).text(`${temp}도`);
+
                     }
                 });
             }
+
+
         }
     });
 
