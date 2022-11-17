@@ -1,11 +1,9 @@
 function hide_comment() {
     $('#guestbook_box').hide()
-    $('#card').hide()
 }
 
 function open_comment() {
     $('#guestbook_box').show()
-    $('#card').show()
 }
 
 function show_comment(id) {
@@ -14,23 +12,39 @@ function show_comment(id) {
         url: '/guestbooks?id_give=' + id,
         data: {},
         success: function (response) {
-            const guestbook_list = response['guestbook_key']
-            for (const guestbook of guestbook_list) {
-                const name = guestbook["name"];
-                const comment = guestbook["comment"];
-                const id = guestbook["id"];
+            console.log(response['guestbook_key'])
+            // const guestbook_list = response['guestbook_key']
+            // for (const guestbook of guestbook_list) {
+            //     const name = guestbook["name"];
+            //     const comment = guestbook["comment"];
+            //     const id = guestbook["id"];
+            //     const num = guestbook["num"];
+            
+            let rows = response['guestbook_key']
+            for (let i = 0; i < rows.length; i++){
+                let name = rows[i]['name']
+                let comment = rows[i]['comment']
+                let num = rows[i]['num']
+                let done = rows[i]['done'] 
 
-                let temp_html = `<div class="card-header">
-                                        ${name}
-                                        </div>
-                                        <ul class="list-group list-group-flush">
-                                        <li class="list-group-item">${comment}</li>
-                                        </ul>`
-
+                let temp_html = ``
+                if (done === 0) {
+                    temp_html =  `<div class="card-header">
+                                    ${name}
+                                    </div>
+                                    <ul class="list-group list-group-flush">
+                                    <li class="list-group-item">${comment} </li>
+                                    <button onclick="delete_comment(${num})" type="button" class="delete_comment()" id="delete_comment">🗑</button>
+                                    <button onclick="modi_comment(${num})" type="button" class="modi_comment()" id="delete_comment">수정하기</button>
+                                    </ul>`
+                } else {
+                    temp_html = ``
+                }
                 $('#card').append(temp_html)
             }
+            }
         }
-    });
+    )
 }
 
 function save_comment() {
@@ -49,13 +63,40 @@ function save_comment() {
             success: function (response) {
                 alert(response['msg'])
                 window.location.reload()
-                console.log(typeof (name))
-                console.log(typeof (comment))
-                console.log(typeof (id))
-                console.log(typeof (3))
             }
         });
     }
+}
+
+function delete_comment(num) {
+    // const countnum = $('#num').val();
+    if (confirm('댓글 삭제하실래요? 삭제한 댓글은 복구할 수 없어요 T^T')) 
+    {
+    $.ajax({
+        type: "POST",
+        url: "/guestbooks/done",
+        data: { num_give:num },
+        success: function (response) {
+            alert(response["msg"])
+            window.location.reload()
+        },
+    });
+}}
+
+function modi_comment(num){
+    const modi_comment = prompt('수정하실 내용을 작성해주세요. 그리고 수정한 댓글은 복구할 수 없어요 T^T')
+    console.log(modi_comment)
+    
+    $.ajax({
+        type: "POST",
+        url: "/guestbooks/comment",
+        data: { modi_give:modi_comment, num_give:num },
+        success: function (response) {
+            alert(response["msg"])
+            window.location.reload()
+        },
+    });
+
 }
 
 //프로필 페이지가 다 준비가 되면 함수 실행
