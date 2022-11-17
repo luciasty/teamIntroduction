@@ -47,7 +47,7 @@ $(document).ready(function () {
                                     <div class="col-md-4">
                                         <div class="card-body">
                                             <h5 class="card-title title_color">${name}</h5>
-                                            <p class="card-text">지역:${city}</p>
+                                            <p class="card-text">지역 : ${city}</p>
                                             <p class="card-text ${city}"></p>
                                             <a href="${sns}" class="card-text blog_hover">개발일지 블로그</a>
                                         </div>
@@ -63,6 +63,11 @@ $(document).ready(function () {
 
                 // html구조를 작성하고 가져온 데이터를 삽입한다.
                 $(".members").append(temp_html);
+
+                // /지역의 값이 그 외지역 "Korea"면 숨김처리 한다.
+                if ( city === "Korea") {
+                    $(`.${city}`).hide();
+                }
             }
 
             // 정리해둔 지역 리스트로 필요한 요청만 진행
@@ -75,7 +80,7 @@ $(document).ready(function () {
                     success: function (response) {
                         const temp = response["temp"]
 
-                        $(`.${city}`).text(`${temp}도`);
+                        $(`.${city}`).text(`${temp}  °C`);
 
                     }
                 });
