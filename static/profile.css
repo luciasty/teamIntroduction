@@ -143,18 +143,19 @@ body {
 .card-body {
     border: 1px solid rgba(0,0,0,.125);
 }
-/*.back-home {*/
-/*    background-color: #ffca2c;*/
-/*    border-color: #ffc720;*/
-/*}*/
-/*.back-home:hover {*/
-/*    background: skyblue;*/
-/*}*/
 
-/*.delete_ment:hover {*/
-/*    background: skyblue;*/
-/*}*/
+.back-home {
+    background-color: #ffca2c;
+    border-color: #ffc720;
+}
+.back-home:hover {
+    background: skyblue;
+}
 
-/*.recover:hover {*/
-/*    background: skyblue;*/
-/*}*/
+.delete_ment:hover {
+    background: skyblue;
+}
+
+.recover:hover {
+    background: skyblue;
+}
