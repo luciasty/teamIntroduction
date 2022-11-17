@@ -49,7 +49,7 @@ header > div {
 .button_hover {
     background: gold;
     position: relative;
-    left: 520px;
+    left: 525px;
 
 
 }
@@ -62,6 +62,11 @@ header > div {
 .blog_hover:hover {
     background: skyblue;
     border-radius: 10px;
+
+}
+
+.blog_hover {
+    background-color: silver;
 }
 
 .save_button:hover {
