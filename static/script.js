@@ -1,7 +1,6 @@
 // 팀원을 추가하는 폼을 닫았다 열었다 한다.
 function open_box() {
     $('#post-box').show()
-    activeEvent()
 }
 
 function close_box() {
@@ -10,7 +9,6 @@ function close_box() {
 
 //모든 HTML 문서가 준비가 되었으면 함수를 실행한다.
 $(document).ready(function () {
-    // activeEvent()
     // index페이지에 팀원 리스트 가져오기
     $.ajax({
         type: "get",
@@ -65,7 +63,6 @@ $(document).ready(function () {
 
                 // html구조를 작성하고 가져온 데이터를 삽입한다.
                 $(".members").append(temp_html);
-
             }
 
             // 정리해둔 지역 리스트로 필요한 요청만 진행
@@ -91,6 +88,7 @@ $(document).ready(function () {
     //팀원의 정보를 입력하고 버튼을 클릭하면 함수가 실행한다.
     $(".save_button").click(function () {
         //제이쿼리를 이용해 입력한 정보의 value를 가져온다.
+        const regex = /.{11}-.{11}-.{12}-\d{3}/;
         const image = $("#my_image").val();
         const name = $("#my_name").val();
         const yourself = $("#my_yourself").val();
@@ -103,27 +101,35 @@ $(document).ready(function () {
         let city = $("#my_city").val();
         city = (city === "korea" ? city = "korea" : city)
 
-        //ajax를 통해서 서버와 연결한다.
-        $.ajax({
-            //정보를 추가하기 때문에 POST를 사용한다.
-            //data를 모두 보내고 성공했으면 창을 새로고침 합니다.
-            type: "POST",
-            url: "/members",
-            data: {
-                image_give: image,
-                name_give: name,
-                yourself_give: yourself,
-                strong_give: strong,
-                style_give: style,
-                goals_give: goals,
-                appointment_give: appointment,
-                sns_give: sns,
-                city_give: city
+        if (regex.test(image)) {
+            $.ajax({
+                //정보를 추가하기 때문에 POST를 사용한다.
+                //data를 모두 보내고 성공했으면 창을 새로고침 합니다.
+                type: "POST",
+                url: "/members",
+                data: {
+                    image_give: image,
+                    name_give: name,
+                    yourself_give: yourself,
+                    strong_give: strong,
+                    style_give: style,
+                    goals_give: goals,
+                    appointment_give: appointment,
+                    sns_give: sns,
+                    city_give: city
 
-            }, success: function (response) {
-                alert(response["msg"]);
-                window.location.reload();
-            }
-        });
+                }, success: function (response) {
+                    alert(response["msg"]);
+                    window.location.reload();
+                }
+            });
+        } else {
+            alert("슬랙 이미지 URL이 아닙니다^^");
+            window.location.reload();
+        }
+
+
+        //ajax를 통해서 서버와 연결한다.
+
     });
 });
