@@ -22,8 +22,8 @@ function show_comment(id) {
                                       </div>
                                       <div class="card-body">                            
                                         <p class="card-text">${comment}</p>
-                                        <button onclick="delete_comment(${comment_id})" type="button" id="delete_comment" class="btn btn-primary">삭제</button>
-                                        <button onclick="modi_comment(${comment_id})" type="button" id="delete_comment" class="btn btn-primary">수정</button>`
+                                        <button onclick="delete_comment(${comment_id})" type="button" id="delete_comment" class="btn btn-dark delete_ment">삭제</button>
+                                        <button onclick="modi_comment(${comment_id})" type="button" id="delete_comment" class="btn btn-dark recover">수정</button>`
                     $('#card').append(temp_html)
                 }
             }
