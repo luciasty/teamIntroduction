@@ -132,14 +132,10 @@ $(document).ready(function () {
     });
 });
 
-
-
-
-
 function show_comment() {
     $.ajax({
             type: 'GET',
-            url: '/mainbook',
+            url: '/mainbooks',
             data: {},
             success: function (response) {
                 let rows = response['mainbook_key']
@@ -171,7 +167,7 @@ function save_comment() {
 
         $.ajax({
             type: "POST",
-            url: "/mainbook",
+            url: "/mainbooks",
             data: {name_give: name, comment_give: comment},
             success: function (response) {
                 alert(response['msg'])
@@ -185,7 +181,7 @@ function delete_comment(comment_id) {
     if (confirm('댓글 삭제하실래요? 삭제한 댓글은 복구할 수 없어요 T^T')) {
         $.ajax({
             type: "POST",
-            url: "/mainbook/delete",
+            url: "/mainbooks/delete",
             data: {comment_id_give: comment_id},
             success: function (response) {
                 alert(response["msg"])
@@ -200,7 +196,7 @@ function modi_comment(comment_id) {
 
     $.ajax({
         type: "POST",
-        url: "/mainbook/modi",
+        url: "/mainbooks/modi",
         data: {modi_give: modi_comment, comment_id_give: comment_id},
         success: function (response) {
             alert(response["msg"])
