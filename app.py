@@ -140,6 +140,47 @@ def guestbook_modi():
     db.guestbook.update_one({'comment_id': int(comment_id_receive)}, {'$set': {'comment': modi_receive}})
     return jsonify({'msg': '수정되었습니다.'})
 
+@app.route('/mainbooks', methods=['GET'])
+def mainbook_get():
+    # id_receive = request.args.get('id_give')
+    # id = int(id_receive)
+    mainbook_list = list(db.mainbook.find({}, {'_id': False}))
+    return jsonify({'mainbook_key': mainbook_list})
+
+
+@app.route('/mainbooks', methods=['POST'])
+def mainbook_post():
+    if (db.mainbook.count_documents({}) == 0):
+        comment_id = 0
+    # 문서가 있다면 제일 최근 작성한 문서의 id를 받아온다.
+    else:
+        comment_id = db.mainbook.find().sort("_id", -1)[0]["comment_id"]
+        comment_id += 1
+    name_receive = request.form['name_give']
+    comment_receive = request.form['comment_give']
+
+    doc = {
+        "comment_id": comment_id,
+        'name': name_receive,
+        'comment': comment_receive,
+    }
+    db.mainbook.insert_one(doc)
+    return jsonify({'msg': '방명록 남기기 완료!'})
+
+
+@app.route('/mainbooks/delete', methods=['POST'])
+def mainbook_delete():
+    comment_id_receive = request.form['comment_id_give']
+    db.mainbook.delete_one({'comment_id': int(comment_id_receive)})
+    return jsonify({'msg': '삭제되었습니다.'})
+
+
+@app.route('/mainbooks/modi', methods=['POST'])
+def mainbook_modi():
+    modi_receive = request.form['modi_give']
+    comment_id_receive = request.form['comment_id_give']
+    db.mainbook.update_one({'comment_id': int(comment_id_receive)}, {'$set': {'comment': modi_receive}})
+    return jsonify({'msg': '수정되었습니다.'})
 
 if __name__ == "__main__":
     app.run("0.0.0.0", port=5000, debug=True)

@@ -9,6 +9,7 @@ function close_box() {
 
 //모든 HTML 문서가 준비가 되었으면 함수를 실행한다.
 $(document).ready(function () {
+    show_comment()
     // index페이지에 팀원 리스트 가져오기
     $.ajax({
         type: "get",
@@ -135,3 +136,76 @@ $(document).ready(function () {
 
     });
 });
+
+function show_comment() {
+    $.ajax({
+            type: 'GET',
+            url: '/mainbooks',
+            data: {},
+            success: function (response) {
+                let rows = response['mainbook_key']
+                for (let i = 0; i < rows.length; i++) {
+                    let name = rows[i]['name']
+                    let comment = rows[i]['comment']
+                    let comment_id = rows[i]['comment_id']
+                    let temp_html = `<div class="card-header">
+                                        ${name}
+                                      </div>
+                                      <div class="card-body">                            
+                                        <p class="card-text">${comment}</p>
+                                        <button onclick="delete_comment(${comment_id})" type="button" id="delete_comment" class="btn btn-primary">삭제</button>
+                                        <button onclick="modi_comment(${comment_id})" type="button" id="delete_comment" class="btn btn-primary">수정</button>`
+                    $('#maincard').append(temp_html)
+                }
+            }
+        }
+    )
+}
+
+function save_comment() {
+    const name = $('#name').val();
+    const comment = $('#comment').val();
+
+    if (name === '' || comment === '') {
+        alert('빈칸을 모두 채워주세요 T^T')
+    } else {
+
+        $.ajax({
+            type: "POST",
+            url: "/mainbooks",
+            data: {name_give: name, comment_give: comment},
+            success: function (response) {
+                alert(response['msg'])
+                window.location.reload()
+            }
+        });
+    }
+}
+
+function delete_comment(comment_id) {
+    if (confirm('댓글 삭제하실래요? 삭제한 댓글은 복구할 수 없어요 T^T')) {
+        $.ajax({
+            type: "POST",
+            url: "/mainbooks/delete",
+            data: {comment_id_give: comment_id},
+            success: function (response) {
+                alert(response["msg"])
+                window.location.reload()
+            },
+        });
+    }
+}
+
+function modi_comment(comment_id) {
+    const modi_comment = prompt('수정하실 내용을 작성해주세요. 그리고 수정한 댓글은 복구할 수 없어요 T^T')
+
+    $.ajax({
+        type: "POST",
+        url: "/mainbooks/modi",
+        data: {modi_give: modi_comment, comment_id_give: comment_id},
+        success: function (response) {
+            alert(response["msg"])
+            window.location.reload()
+        },
+    });
+}
