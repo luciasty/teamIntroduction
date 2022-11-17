@@ -66,7 +66,7 @@ $(document).ready(function () {
                 $(".members").append(temp_html);
 
                 // /지역의 값이 그 외지역 "Korea"면 숨김처리 한다.
-                if ( city === "Korea") {
+                if (city === "Korea") {
                     $(`.${city}`).hide();
                 }
             }
@@ -80,7 +80,7 @@ $(document).ready(function () {
                     data: {},
                     success: function (response) {
                         const temp = response["temp"]
-                        
+
                         $(`.${city}`).text(`${temp}  °C`);
                     }
                 });
@@ -151,10 +151,10 @@ function show_comment() {
                     let temp_html = `<div class="card-header">
                                         ${name}
                                       </div>
-                                      <div class="card-body">                            
+                                      <div class="card-body card-body-border">                            
                                         <p class="card-text">${comment}</p>
-                                        <button onclick="delete_comment(${comment_id})" type="button" id="delete_comment" class="btn btn-primary">삭제</button>
-                                        <button onclick="modi_comment(${comment_id})" type="button" id="delete_comment" class="btn btn-primary">수정</button>`
+                                        <button onclick="delete_comment(${comment_id})" type="button" id="delete_comment" class="btn btn-primary delete_ment">삭제</button>
+                                        <button onclick="modi_comment(${comment_id})" type="button" id="delete_comment" class="btn btn-primary recover">수정</button>`
                     $('#maincard').append(temp_html)
                 }
             }
@@ -198,14 +198,18 @@ function delete_comment(comment_id) {
 
 function modi_comment(comment_id) {
     const modi_comment = prompt('수정하실 내용을 작성해주세요. 그리고 수정한 댓글은 복구할 수 없어요 T^T')
+    if (!(modi_comment === null)) {
+        $.ajax({
+            type: "POST",
+            url: "/mainbooks/modi",
+            data: {modi_give: modi_comment, comment_id_give: comment_id},
+            success: function (response) {
+                alert(response["msg"])
+                window.location.reload()
+            },
+        });
+    } else {
+        window.location.reload()
+    }
 
-    $.ajax({
-        type: "POST",
-        url: "/mainbooks/modi",
-        data: {modi_give: modi_comment, comment_id_give: comment_id},
-        success: function (response) {
-            alert(response["msg"])
-            window.location.reload()
-        },
-    });
 }

@@ -69,15 +69,19 @@ function delete_comment(comment_id) {
 function modi_comment(comment_id) {
     const modi_comment = prompt('수정하실 내용을 작성해주세요. 그리고 수정한 댓글은 복구할 수 없어요 T^T')
 
-    $.ajax({
-        type: "POST",
-        url: "/guestbooks/modi",
-        data: {modi_give: modi_comment, comment_id_give: comment_id},
-        success: function (response) {
-            alert(response["msg"])
-            window.location.reload()
-        },
-    });
+    if (!(modi_comment === null)) {
+        $.ajax({
+            type: "POST",
+            url: "/guestbooks/modi",
+            data: {modi_give: modi_comment, comment_id_give: comment_id},
+            success: function (response) {
+                alert(response["msg"])
+                window.location.reload()
+            },
+        });
+    } else {
+        window.location.reload()
+    }
 }
 
 //프로필 페이지가 다 준비가 되면 함수 실행

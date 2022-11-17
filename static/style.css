@@ -43,7 +43,6 @@ header > div {
     background: #F1F1F3;
 
 
-
 }
 
 .button_hover {
@@ -85,7 +84,6 @@ header > div {
     width: 540px;
     height: 180px;
 }
-
 
 
 #post-box {
@@ -146,3 +144,47 @@ header > div {
     justify-content: space-between;
 
 }
+
+.card-header {
+    border: 1px solid rgba(0, 0, 0, .125);
+    background-color: greenyellow;
+}
+
+.card-body-border {
+    border: 1px solid rgba(0, 0, 0, .125);
+}
+
+.back-home {
+    background-color: #ffca2c;
+    border-color: #ffc720;
+}
+
+.back-home:hover {
+    background: skyblue;
+}
+
+.delete_ment:hover {
+    background: skyblue;
+}
+
+.recover:hover {
+    background: skyblue;
+}
+
+.back-home:hover {
+    background: skyblue;
+}
+
+.delete_ment:hover {
+    background: skyblue;
+}
+
+.recover:hover {
+    background: skyblue;
+}
+
+.card-header {
+    border: 1px solid rgba(0, 0, 0, .125);
+    background-color: greenyellow;
+}
+
